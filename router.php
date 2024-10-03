@@ -2,23 +2,15 @@
 //require_once 'libs/response.php';
 //require_once 'app/middlewares/session.auth.middleware.php';
 require_once 'app/controllers/film.controller.php';
-//require_once 'app/controllers/auth.controller.php';
+require_once 'app/controllers/user.controller.php';
 
 // base_url para redirecciones y base tag
 define('BASE_URL', '//'.$_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']).'/');
 
-$action = 'listar'; // accion por defecto si no se envia ninguna
+$action = 'home'; // accion por defecto si no se envia ninguna
 if (!empty( $_GET['action'])) {
     $action = $_GET['action'];
 }
-
-// tabla de ruteo
-
-// listar  -> TaskController->showTask();
-// nueva  -> TaskController->addTask();
-// eliminar/:ID  -> TaskController->deleteTask($id);
-// finalizar/:ID -> TaskController->finishTask($id);
-// ver/:ID -> TaskController->view($id); COMPLETAR
 
 // parsea la accion para separar accion real de parametros
 $params = explode('/', $action);
@@ -35,14 +27,30 @@ switch ($params[0]) {
         $id = $params[1];
         $controller->showFilmsByDirector($id);
         break;
-    case 'showFilms':
-        //sessionAuthMiddleware($res); // Verifica que el usuario esté logueado y setea $res->user o redirige a login
+    case 'new':
+        //sessionAuthMiddleware($res);
         $controller = new FilmController();
         $controller->addFilm();
         break;
-        
+    case 'delete':
+        //sessionAuthMiddleware($res);
+        $controller = new FilmController();
+        $controller->deleteFilm($params[1]);
+        break;
+    case 'showLogin':
+        //sessionAuthMiddleware($res);
+        $controller = new UserController();
+        $controller->showLogin();
+        break;
+    case 'login':
+        //sessionAuthMiddleware($res);
+        $controller = new UserController();
+        $controller->login();
+        break;
     default: 
-        echo "404 Page Not Found"; // deberiamos llamar a un controlador que maneje esto
+        $controller = new FilmController();
+        $error = "404 Page not found.";
+        $controller->showError($error); 
         break;
 }
 

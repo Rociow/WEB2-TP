@@ -1,0 +1,30 @@
+<?php require 'header.phtml' ?>
+
+
+<?php if ($error): ?>
+    <div class='alert alert-danger' role='alert'>
+        <?= $error ?>
+    </div>
+<?php endif ?>
+
+
+<form action="login" method="POST" class="my-4">
+    <div class="row">
+        <div class="col-9">
+            <div class="form-group">
+                <label>USUARIO</label>
+                <input required name="name" type="text" class="form-control">
+            </div>
+        </div>
+
+        <div class="col-9">
+            <div class="form-group">
+                <label>CONTRASEÑA</label>
+                <input required name="contraseña" type="password" class="form-control">
+            </div>
+        </div>
+
+    <button type="submit" class="btn btn-primary mt-2">Enviar</button>
+</form>
+
+<?php require 'footer.phtml' ?>

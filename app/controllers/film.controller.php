@@ -13,8 +13,6 @@ class FilmController {
         $this->view = new FilmView();
     }
 
-
-
     function showDirectors(){
         $directores = $this->model->getDirectores();
         $this -> view -> showDirectores($directores);
@@ -60,13 +58,17 @@ public function deleteFilm($id) {
     $film = $this->model->getFilm($id);
 
     if (!$film) {
-        return $this->view->showError("No existe la tarea con el id=$id");
+        return $this->view->showError("No existe la pelicula con el id=$id");
     }
 
     // borro la tarea y redirijo
-    $this->model->eraseTask($id);
+    $this->model->eraseFilm($id);
 
     header('Location: ' . BASE_URL);
+}
+
+public function showError($error){
+    $this->view->showError($error);
 }
 
 /*public function finishTask($id) {

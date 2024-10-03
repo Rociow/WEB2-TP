@@ -69,18 +69,18 @@ class FilmModel {
         return $director;
     }
  
-    public function insertFilm($title, $id_director, $genero, $year, $sinopsis) { 
-        $query = $this->db->prepare('INSERT INTO peliculas(titulo, id_director, genero, year, sinopsis) VALUES (?, ?, ?, ?)');
+    public function insertFilm($id_director, $title, $genero, $year, $sinopsis) { 
+        $query = $this->db->prepare('INSERT INTO peliculas(id_director, titulo, genero, year, sinopsis) VALUES (?, ?, ?, ?, ?)');
         $query->execute([$title, $id_director, $genero, $year, $sinopsis]);
     
         $id = $this->db->lastInsertId();
 
         return $id;
     }
- 
-    public function eraseTask($id) {
+
+    function eraseFilm($film){
         $query = $this->db->prepare('DELETE FROM peliculas WHERE id = ?');
-        $query->execute([$id]);
+        $query->execute([$film]);
     }
 
     public function updateTask($id) {        
