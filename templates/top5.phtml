@@ -1,0 +1,23 @@
+<?php require 'header.phtml' ?>
+ 
+<h1> Top 5 Populares esta semana! </h1>
+
+<ul class="list-group">
+<?php foreach($films as $film): ?>
+    <li class="list-group-item item-task">
+        <div class="label">
+            <b><?= htmlspecialchars($film->titulo) ?></b> | <?= $film->year ?> | <?= $film->genero ?> 
+            <p><?= $film->sinopsis ?></p>
+        </div>
+        <div class="actions">
+        
+            <a href="eliminar/<?= $film->id ?>" type="button" class='btn btn-danger btn-sm ml-auto'>Borrar</a>
+        </div>
+    </li>
+    <?php endforeach ?>
+</ul>
+
+<p class="mt-3"><small>Mostrando <?=$count?> peliculas</small></p>
+
+<?php require 'footer.phtml' ?>
+

@@ -1,25 +1,23 @@
 <?php
-
 require_once './app/models/user.model.php';
-require_once './app/view/user.view.php';
+require_once './app/view/auth.view.php';
 
-class UserController {
-
-    private $view;
+class AuthController {
     private $model;
+    private $view;
 
     public function __construct() {
         $this->model = new UserModel();
-        $this->view = new UserView();
+        $this->view = new AuthView();
     }
-    
+
     public function showLogin() {
         // Muestro el formulario de login
         return $this->view->showLogin();
     }
 
     public function login() {
-        if (!isset($_POST['email']) || empty($_POST['email'])) {
+        if (!isset($_POST['name']) || empty($_POST['name'])) {
             return $this->view->showLogin('Falta completar el nombre de usuario');
         }
     
@@ -27,21 +25,19 @@ class UserController {
             return $this->view->showLogin('Falta completar la contraseña');
         }
     
-        $email = $_POST['email'];
+        $name = $_POST['name'];
         $password = $_POST['password'];
     
         // Verificar que el usuario está en la base de datos
-        $userFromDB = $this->model->getUserByEmail($email);
+        $userFromDB = $this->model->getUserByName($name);
 
-
-            //SE FIJA SI LA CONTRASEÑA QUE INGRESA EL USUARIO COINCIDE CON EL HASH
         // password: 123456
         // $userFromDB->password: $2y$10$xQop0wF1YJ/dKhZcWDqHceUM96S04u73zGeJtU80a1GmM.H5H0EHC
         if($userFromDB && password_verify($password, $userFromDB->password)){
             // Guardo en la sesión el ID del usuario
             session_start();
             $_SESSION['ID_USER'] = $userFromDB->id;
-            $_SESSION['EMAIL_USER'] = $userFromDB->email;
+            $_SESSION['NAME_USER'] = $userFromDB->name;
             $_SESSION['LAST_ACTIVITY'] = time();
     
             // Redirijo al home
@@ -56,4 +52,37 @@ class UserController {
         session_destroy(); // Borra la cookie que se buscó
         header('Location: ' . BASE_URL);
     }
+
+    function showRegister() {
+        $this->view->showFormRegister();
+    }
+
+    function authRegister() {
+        if (empty($_POST['username']) || empty($_POST['password'])) {
+            $this->view->showFormRegister("ERROR, no pudimos verificar tu identidad, AMBOS campos deben estar completos.");
+            return;
+        }
+
+        $username = $_POST['username'];
+
+        $users = $this->model->getAllUsers();
+        foreach ($users as $usuario) {
+            if ($usuario->username == $username) {
+                $this->view->showFormRegister("El nombre de usuario ya existe! Intenta otra vez...");
+                return;
+            }
+        }
+
+        $password = $_POST['password'];
+        $hash = password_hash($password, PASSWORD_DEFAULT);
+
+        $id = $this->model->addUser($username, $hash);
+
+        if($id){
+            header('Location: ' . BASE_URL);
+        } else {
+            $this->view->showFormRegister("Error. No se pudo registrar");
+        }
+    }
 }
+

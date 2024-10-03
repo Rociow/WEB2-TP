@@ -5,12 +5,12 @@
     <li class="list-group-item item-task">
         <div class="label">
             <b><?= htmlspecialchars($director->nombre) ?></b> | <?=$director->nacionalidad?> |  <?= $director->fecha_nacimiento ?>
-            <p><?=$director->biografia?></p>
+            <p><?=substr($director->biografia,0,100); echo('...')?></p>
         
         </div>
         <div class="actions">
             <a href="eliminar/<?= $director->id ?>" type="button" class='btn btn-danger btn-sm ml-auto'>Borrar</a>
-            <a href="showFilms/<?= $director->id ?>" type="button" class='btn btn-danger btn-sm ml-auto'>Ver Películas</a>
+            <a href="showDirector/<?= $director->id ?>" type="button" class='btn btn-danger btn-sm ml-auto'>Ver Más...</a>
         </div>
     </li>
 <?php endforeach ?>

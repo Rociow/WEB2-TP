@@ -64,7 +64,7 @@ class FilmModel {
         $query = $this->db->prepare('SELECT * FROM director WHERE id = ?');
         $query->execute([$id]);   
     
-        $director = $query->fetch(PDO::FETCH_OBJ);
+        $director = $query->fetchAll(PDO::FETCH_OBJ);
     
         return $director;
     }
@@ -86,6 +86,14 @@ class FilmModel {
     public function updateTask($id) {        
         $query = $this->db->prepare('UPDATE peliculas SET WHERE id = ?');
         $query->execute([$id]);
+    }
+
+    public function getTop5(){
+        $query = $this->db->prepare('SELECT * FROM `peliculas` ORDER BY `year` DESC LIMIT 5');
+        $query->execute();
+
+        $top5 = $query->fetchAll(PDO::FETCH_OBJ); 
+        return $top5;
     }
 
 }

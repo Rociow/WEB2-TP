@@ -18,10 +18,15 @@ class FilmController {
         $this -> view -> showDirectores($directores);
     }   
 
+    function showTop5(){
+        $top5 = $this->model->getTop5();
+        $this->view->showTop5($top5);
+    }
+
     function showFilmsByDirector($id_director){
         $films= $this->model->getFilmByDirector($id_director);
-        $director= $this->model->getDirectorName($id_director);
-        $this -> view -> showFilms($films, $director);
+        $director= $this->model->getDirector($id_director);
+        $this -> view -> showDirector($films, $director);
     }
 
     public function addFilm() {
