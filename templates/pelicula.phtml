@@ -1,0 +1,29 @@
+<?php require 'header.phtml' ?>
+
+<div>
+    <h1> <?php echo $film[0]->titulo ?> </h1>
+    <div>
+        <p>  <?php foreach($film as $data): ?>
+                <b><?= htmlspecialchars($data->year) ?></b> | <?= $director; ?> | <?= $data->genero ?> 
+        </p>
+    </div>
+</div>
+<div>
+    <ul class="list-group">
+  
+        <li class="list-group-item item-task">
+            <div class="label">
+                
+                <p><?= $data->sinopsis ?></p>
+            </div>
+            <!-- <div class="actions">
+                <a href="eliminar/< ?= $film->id ?>" type="button" class='btn btn-danger btn-sm ml-auto'>Borrar</a>
+            </div> -->
+        </li>
+    <?php endforeach ?>
+    </ul>
+
+</div>
+
+
+<?php require 'footer.phtml' ?>

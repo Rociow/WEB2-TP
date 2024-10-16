@@ -10,8 +10,10 @@
             <p><?= $film->sinopsis ?></p>
         </div>
         <div class="actions">
-        
-            <a href="eliminar/<?= $film->id ?>" type="button" class='btn btn-danger btn-sm ml-auto'>Borrar</a>
+        <?php if ((isset ($_SESSION['USER_USERNAME']))&&(($_SESSION['USER_USERNAME']=='webadmin'))): ?>
+                <a href="deleteFilm/<?= $film->id ?>" type="button" class='btn btn-danger btn-sm ml-auto'>Borrar</a>
+            <?php endif; ?>
+            <a href="showFilm/<?= $film->id ?>" type="button" class='btn btn-danger btn-sm ml-auto'>Ver más...</a>
         </div>
     </li>
     <?php endforeach ?>

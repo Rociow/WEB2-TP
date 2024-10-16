@@ -29,6 +29,15 @@ class FilmController {
         $this -> view -> showDirector($films, $director);
     }
 
+    function showFilm($id){
+        $film = $this->model->getFilm($id);
+        $id_director = $this->model->getDirectorIdByFilm($id);
+   
+        $director= $this->model->getDirectorName($id_director[0]->id_director);
+
+        $this -> view -> showFilm($film, $director[0]->nombre);
+    }  
+
     public function addFilm() {
     if (!isset($_POST['title']) || empty($_POST['title'])) {
         return $this->view->showError('Falta completar el título');
@@ -70,6 +79,22 @@ public function deleteFilm($id) {
     $this->model->eraseFilm($id);
 
     header('Location: ' . BASE_URL);
+}
+
+public function deleteDirector($id) {
+    // obtengo la tarea por id
+    $director = $this->model->getDirector($id);
+
+    if (!$director) {
+        return $this->view->showError("No existe director con el id=$id");
+        var_dump($director);
+    }
+    
+    // borro la tarea y redirijo
+    $this->model->eraseDirector($id);
+
+    header('Location: ');
+    
 }
 
 public function showError($error){

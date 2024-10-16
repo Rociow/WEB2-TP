@@ -7,9 +7,9 @@ class UserModel {
        $this->db = new PDO('mysql:host=localhost;dbname=db_pelis;charset=utf8', 'root', '');
     }
  
-    public function getUserByName($nombre) {    
-        $query = $this->db->prepare("SELECT * FROM usuarios WHERE nombre = ?");
-        $query->execute([$nombre]);
+    public function getUserByName($username) {    
+        $query = $this->db->prepare("SELECT * FROM usuarios WHERE username = ?");
+        $query->execute([$username]);
     
         $user = $query->fetch(PDO::FETCH_OBJ);
     
@@ -25,7 +25,7 @@ class UserModel {
     }
 
     public function addUser($username, $hash){
-        $query = $this->db->prepare('INSERT INTO usuarios(nombre, contraseña) VALUES(?,?)');
+        $query = $this->db->prepare('INSERT INTO usuarios(username, password) VALUES(?,?)');
         $query->execute([$username,$hash]);
 
         return $this->db->lastInsertId();

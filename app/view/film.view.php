@@ -17,6 +17,10 @@ class FilmView {
         require_once './templates/director.phtml';
     }
 
+    function showFilm ($film, $director){
+        require_once './templates/pelicula.phtml';
+    }
+
     function showFormulario () {
         require_once './templates/agregar_pelis.phtml';
     }
@@ -30,7 +34,6 @@ class FilmView {
         $count = count($films);
         require_once './templates/top5.phtml';
     }
-
 
 
 }

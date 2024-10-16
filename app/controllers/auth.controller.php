@@ -17,7 +17,7 @@ class AuthController {
     }
 
     public function login() {
-        if (!isset($_POST['name']) || empty($_POST['name'])) {
+        if (!isset($_POST['username']) || empty($_POST['username'])) {
             return $this->view->showLogin('Falta completar el nombre de usuario');
         }
     
@@ -25,19 +25,23 @@ class AuthController {
             return $this->view->showLogin('Falta completar la contraseña');
         }
     
-        $name = $_POST['name'];
+        $username = $_POST['username'];
         $password = $_POST['password'];
     
         // Verificar que el usuario está en la base de datos
-        $userFromDB = $this->model->getUserByName($name);
+        $user = $this->model->getUserByName($username);
+        var_dump($user);
 
-        // password: 123456
-        // $userFromDB->password: $2y$10$xQop0wF1YJ/dKhZcWDqHceUM96S04u73zGeJtU80a1GmM.H5H0EHC
-        if($userFromDB && password_verify($password, $userFromDB->password)){
+        var_dump($password);
+        //HASTA ACA TODO BIEN
+        
+        var_dump(password_verify($password, $user->password));
+
+        if($user && password_verify($password, $user->password)){
             // Guardo en la sesión el ID del usuario
             session_start();
-            $_SESSION['ID_USER'] = $userFromDB->id;
-            $_SESSION['NAME_USER'] = $userFromDB->name;
+            $_SESSION['USER_ID'] = $user->id;
+            $_SESSION['USER_USERNAME'] = $user->username;
             $_SESSION['LAST_ACTIVITY'] = time();
     
             // Redirijo al home

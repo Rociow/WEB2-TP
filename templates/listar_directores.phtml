@@ -9,7 +9,9 @@
         
         </div>
         <div class="actions">
-            <a href="eliminar/<?= $director->id ?>" type="button" class='btn btn-danger btn-sm ml-auto'>Borrar</a>
+        <?php if ((isset ($_SESSION['USER_USERNAME']))&&(($_SESSION['USER_USERNAME']=='webadmin'))): ?>
+            <a href="deleteDirector/<?= $director->id ?>" type="button" class='btn btn-danger btn-sm ml-auto'>Borrar</a>
+        <?php endif; ?>
             <a href="showDirector/<?= $director->id ?>" type="button" class='btn btn-danger btn-sm ml-auto'>Ver Más...</a>
         </div>
     </li>

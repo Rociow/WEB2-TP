@@ -55,9 +55,19 @@ class FilmModel {
         $query = $this->db->prepare('SELECT * FROM peliculas WHERE id = ?');
         $query->execute([$id]);   
     
-        $film = $query->fetch(PDO::FETCH_OBJ);
+        $film = $query->fetchAll(PDO::FETCH_OBJ);
     
         return $film;
+    }
+
+    function getDirectorIdByFilm($id){
+        $query = $this->db->prepare('SELECT id_director FROM peliculas WHERE id = ?');
+        $query->execute([$id]);
+     
+         // 3. Obtengo los datos en un arreglo de objetos
+         $id_director = $query->fetchAll(PDO::FETCH_OBJ); 
+     
+         return $id_director;
     }
 
     public function getDirector($id) {    
@@ -81,6 +91,11 @@ class FilmModel {
     function eraseFilm($film){
         $query = $this->db->prepare('DELETE FROM peliculas WHERE id = ?');
         $query->execute([$film]);
+    }
+
+    function eraseDirector($director){
+        $query = $this->db->prepare('DELETE FROM director WHERE id = ?');
+        $query->execute([$director]);
     }
 
     public function updateTask($id) {        

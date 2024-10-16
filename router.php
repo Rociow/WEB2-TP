@@ -19,23 +19,27 @@ $params = explode('/', $action);
 
 switch ($params[0]) {
     case 'home':
+        sessionAuthMiddleware($res);
         $controller = new FilmController();
         //PUEDE SER DIRECTORES O TOP5 PELIS POPULARES
         $controller->showTop5();
         break;
     case 'showDirector':
+        sessionAuthMiddleware($res);
         // Verifica que el usuario esté logueado y setea $res->user o redirige a login
         $controller = new FilmController();
         $id = $params[1];
         $controller->showFilmsByDirector($id);
         break;
     case 'showFilm':
+        sessionAuthMiddleware($res);
         // Verifica que el usuario esté logueado y setea $res->user o redirige a login
         $controller = new FilmController();
         $id = $params[1];
         $controller->showFilm($id);
         break;
     case 'showDirectors':
+        sessionAuthMiddleware($res);
         $controller = new FilmController();
         $controller->showDirectors();
         break;
@@ -44,7 +48,12 @@ switch ($params[0]) {
         $controller = new FilmController();
         $controller->addFilm();
         break;
-    case 'delete':
+    case 'deleteFilm':
+        sessionAuthMiddleware($res);
+        $controller = new FilmController();
+        $controller->deleteFilm($params[1]);
+        break;
+    case 'deleteDirector':
         sessionAuthMiddleware($res);
         $controller = new FilmController();
         $controller->deleteFilm($params[1]);
@@ -66,7 +75,12 @@ switch ($params[0]) {
         $controller = new AuthController();
         $controller->authRegister();
         break;
+    case 'logout':
+        $controller = new AuthController();
+        $controller->logout();
+        break;
     default: 
+        sessionAuthMiddleware($res);
         $controller = new FilmController();
         $error = "404 Page not found.";
         $controller->showError($error); 
