@@ -21,7 +21,7 @@ class FilmView {
         require_once './templates/pelicula.phtml';
     }
 
-    function showFormulario () {
+    function showFilmForm ($directores) {
         require_once './templates/agregar_pelis.phtml';
     }
 

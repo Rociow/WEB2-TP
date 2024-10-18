@@ -80,7 +80,7 @@ class FilmModel {
     }
  
     public function insertFilm($id_director, $title, $genero, $year, $sinopsis) { 
-        $query = $this->db->prepare('INSERT INTO peliculas(id_director, titulo, genero, year, sinopsis) VALUES (?, ?, ?, ?, ?)');
+        $query = $this->db->prepare('INSERT INTO peliculas(titulo, id_director, genero, year, sinopsis) VALUES (?, ?, ?, ?, ?)');
         $query->execute([$title, $id_director, $genero, $year, $sinopsis]);
     
         $id = $this->db->lastInsertId();
