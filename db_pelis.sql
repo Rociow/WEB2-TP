@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 19, 2024 at 05:20 AM
+-- Generation Time: Oct 19, 2024 at 10:43 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -20,6 +20,44 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_pelis`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `calificacion`
+--
+
+CREATE TABLE `calificacion` (
+  `id` int(11) NOT NULL,
+  `id_pelis` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `calificacion` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `director`
+--
+
+CREATE TABLE `director` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(45) NOT NULL,
+  `nacionalidad` varchar(45) NOT NULL,
+  `fecha_nacimiento` date NOT NULL,
+  `biografia` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `director`
+--
+
+INSERT INTO `director` (`id`, `nombre`, `nacionalidad`, `fecha_nacimiento`, `biografia`) VALUES
+(1, 'David Fincher', 'Estadounidense', '1962-08-28', 'David Andrew Leo Fincher es un director estadounidense, sus películas son en su mayoría thrillers y recibió 40 nominaciones de la academia incluyendo 3 como mejor director'),
+(2, 'Martin Scorsese', 'Estadounidense', '1942-11-17', 'Martin Scorsese es un director, productor, escritor y actor estadounidense. Una de las mayores figuras del Hollywood moderno, es considerado uno de los directores más influyentes de la historia.'),
+(3, 'Quentin Tarantino', 'Estadounidense', '1963-03-27', 'Quentin Jerome Tarantino es un director, escritor, productor y actor estadounidense comenzo en 1990 como un director independiente con su primer pelicula Perros de la Calle y desde entonces carrera siempre fue exitosa.'),
+(4, 'Wes Anderson', 'Estadounidense', '1969-05-01', 'Wes Anderson es un cineasta estadounidense, sus películas son conocidas por su simetría, excentricismo y estilos de narrativa únicos.'),
+(5, 'David Lynch', 'Estadounidense', '1946-01-20', 'David Keith Lynch es un director, pintor, artista visual, escritor y músico estadounidense. Ha desarrollado su estilo cinematográfico único el cual es descripto por su no importa');
 
 -- --------------------------------------------------------
 
@@ -56,9 +94,44 @@ INSERT INTO `peliculas` (`id`, `titulo`, `id_director`, `genero`, `year`, `sinop
 (23, 'The Wolf of Wall Street', 2, 'Comedia', '2013', 'di caprio millonario mucha joda'),
 (24, 'Killers of the Flower Moon', 2, 'Historica', '2023', 'de niro y dicaprio estafan a una familia de i');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `id` int(11) NOT NULL,
+  `username` varchar(45) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `username`, `password`) VALUES
+(6, 'ro', '$2y$10$gyCP3D0nNLmv7hkC2KekCOn7i8Wh8X5joWGyVJ8qmydC/wgz6SAhS'),
+(7, 'webadmin', '$2y$10$NQ9kevGQWUFDGvqE6ix3kucKrq3ewITihd/79jTLx9dTmt.4/ZNJW'),
+(8, 'juani', '$2y$10$UzPlsYAmJBWeOWqgd9IbTe4mskPgNx.C7IwU0N9pzPpQ99DucCPHi');
+
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `calificacion`
+--
+ALTER TABLE `calificacion`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_calificacion_usuario` (`id_usuario`),
+  ADD KEY `fk_calificacion_pelis` (`id_pelis`);
+
+--
+-- Indexes for table `director`
+--
+ALTER TABLE `director`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `peliculas`
@@ -68,8 +141,26 @@ ALTER TABLE `peliculas`
   ADD KEY `fk_pelis_director` (`id_director`);
 
 --
+-- Indexes for table `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `calificacion`
+--
+ALTER TABLE `calificacion`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `director`
+--
+ALTER TABLE `director`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `peliculas`
@@ -78,8 +169,21 @@ ALTER TABLE `peliculas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
+-- AUTO_INCREMENT for table `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `calificacion`
+--
+ALTER TABLE `calificacion`
+  ADD CONSTRAINT `fk_calificacion_pelis` FOREIGN KEY (`id_pelis`) REFERENCES `peliculas` (`id`),
+  ADD CONSTRAINT `fk_calificacion_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`);
 
 --
 -- Constraints for table `peliculas`
