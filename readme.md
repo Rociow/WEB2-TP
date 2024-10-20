@@ -24,3 +24,6 @@ Esta tabla contará con los atributos: **id**, **nombre** y **contraseña**.
 ### Reseña
 Esta tabla contará con los atributos: **id**, **id_pelis**, **id_usuario** y **reseña/calificación**. Tentativamente establecimos la relación de id_usuario con la tabla usuario (su id) y id_pelis con la tabla peliculas (con su respectivo id)
 
+### Breve explicación del sitio
+Desarrollamos un sistema web que funciona a partir de peticiones de usuarios y un programa que genera recursos dinamicamente a partir de informacion de la base de datos. El router se encarga de atender todas las peticiones del usuario y tambien implementamos el patron de arquitectura de software que divide la lógica del programa en tres elementos inter-relacionados: el modelo, que se encarga del acceso a los datos; la vista, que se encarga de la interfaz del usuario; y el controlador, que funciona como coordinador de la vista y el modelo.
+A su vez tambien creamos una interfaz para el inicio de sesion, con su respectiva autenticacion, y un usuario administrador que será el unico con la posibilidad de modificar y eliminar items.
