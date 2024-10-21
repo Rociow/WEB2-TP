@@ -25,6 +25,10 @@ class FilmView {
         require_once './templates/agregar_pelis.phtml';
     }
 
+    function showModifyFilm($film, $directores) {
+        require_once './templates/modificar_peli.phtml';
+    }
+
     function showLogin () {
         require_once './templates/form_login.phtml';
     }

@@ -74,6 +74,43 @@ class FilmController {
     header('Location: ' . BASE_URL);
 }
 
+function showModify($id) {
+    $film = $this->model->getFilm($id);
+    $directores = $this->model->getDirectores();
+    
+    $this->view->showModifyFilm($film, $directores);
+}
+
+public function modifyFilm($id) {
+    if (!isset($_POST['title']) || empty($_POST['title'])) {
+        return $this->view->showError('Falta completar el título');
+    }
+    if (!isset($_POST['director']) || empty($_POST['director'])) {
+        return $this->view->showError('Falta el director');
+    }
+    if (!isset($_POST['year']) || empty($_POST['year'])) {
+        return $this->view->showError('Falta el año');
+    }
+    if (!isset($_POST['genre']) || empty($_POST['genre'])) {
+            return $this->view->showError('Falta el genero');
+        }
+    if (!isset($_POST['synopsis']) || empty($_POST['synopsis'])) {
+        return $this->view->showError('Falta la sinopsis');
+    }
+
+    $title = $_POST['title'];
+    $id_director = $_POST['director'];
+    $genre = $_POST['genre'];
+    $year = $_POST['year'];
+    $synopsis = $_POST['synopsis'];
+
+    $this->model->modifyFilm($id, $title, $id_director, $genre, $year, $synopsis);
+
+    //$id = $this->model->insertFilm($title, $genre, $year, $synopsis); //$id_director, $genre, $year, $synopsis);
+
+    // redirijo al home (también podriamos usar un método de una vista para motrar un mensaje de éxito)
+    header('Location: ' . BASE_URL);
+}
 
 public function deleteFilm($id) {
     // obtengo la tarea por id

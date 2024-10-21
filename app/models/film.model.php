@@ -88,6 +88,13 @@ class FilmModel {
         return $id;
     }
 
+    function modifyFilm($id, $title, $id_director, $genre, $year, $synopsis) {        
+        $query = $this->db->prepare('UPDATE peliculas SET titulo=?, id_director=?, genero=?, year=?, sinopsis=? WHERE id = ?');
+        $query->execute([$title, $id_director, $genre, $year, $synopsis, $id]);
+
+        return $id;
+    }
+
     function eraseFilm($film){
         $query = $this->db->prepare('DELETE FROM peliculas WHERE id = ?');
         $query->execute([$film]);
@@ -96,11 +103,6 @@ class FilmModel {
     function eraseDirector($director){
         $query = $this->db->prepare('DELETE FROM director WHERE id = ?');
         $query->execute([$director]);
-    }
-
-    public function updateTask($id) {        
-        $query = $this->db->prepare('UPDATE peliculas SET WHERE id = ?');
-        $query->execute([$id]);
     }
 
     public function getTop5(){

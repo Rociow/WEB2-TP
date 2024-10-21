@@ -68,6 +68,16 @@ switch ($params[0]) {
         $controller = new FilmController();
         $controller->addFilm();
         break;
+    case 'showModify' :
+        sessionAuthMiddleware($res);
+        $controller = new FilmController();
+        $controller->showModify($params[1]);
+        break;
+    case 'modifyFilm' :
+        sessionAuthMiddleware($res);
+        $controller = new FilmController();
+        $controller->modifyFilm($params[1]);
+        break;
     case 'showLogin':
         $controller = new AuthController();
         $controller->showLogin();

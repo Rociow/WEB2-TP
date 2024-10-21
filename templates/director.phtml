@@ -1,4 +1,7 @@
-<?php require 'header.phtml' ?>
+<?php 
+$titulo = $director[0]->nombre;
+require 'header.phtml';
+ ?>
 
 <div>
     <h1> <?php echo $director[0]->nombre ?> </h1>
@@ -23,7 +26,7 @@
                 <a href="deleteFilm/<?= $film->id ?>" type="button" class='btn btn-danger btn-sm ml-auto'>Borrar</a>
             <?php endif; ?>
             <?php if ((isset ($_SESSION['USER_USERNAME']))): ?>
-                <a href="modifyFilm/<?= $film->id ?>" type="button" class='btn btn-danger btn-sm ml-auto'>Editar</a>
+                <a href="showModify/<?= $film->id ?>" type="button" class='btn btn-danger btn-sm ml-auto'>Editar</a>
             <?php endif; ?>
                 <a href="showFilm/<?= $film->id ?>" type="button" class='btn btn-danger btn-sm ml-auto'>Ver más...</a>
             </div>
