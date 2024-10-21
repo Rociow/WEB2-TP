@@ -16,7 +16,11 @@ require 'header.phtml';
                 <label>Director</label>
                 <select name="director" id="director">
                     <?php foreach ($directores as $director): ?>
-                        <option value="<?=$director->id?>"><?=$director->nombre?></option>
+                        <?php if ($director->id == $film[0]->id_director) : ?>
+                            <option value="<?=$director->id?>" selected><?=$director->nombre?></option>
+                        <?php else : ?>
+                            <option value="<?=$director->id?>"><?=$director->nombre?></option>
+                        <?php endif ?>
                     <?php endforeach ?>
                 </select>
             </div>

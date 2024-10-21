@@ -2,6 +2,7 @@
 require_once 'libs/response.php';
 require_once 'app/middlewares/session.auth.middleware.php';
 require_once 'app/controllers/film.controller.php';
+require_once 'app/controllers/director.controller.php';
 require_once 'app/controllers/auth.controller.php';
 
 // base_url para redirecciones y base tag
@@ -69,38 +70,38 @@ switch ($params[0]) {
     case 'showDirector':
         sessionAuthMiddleware($res);
         // Verifica que el usuario esté logueado y setea $res->user o redirige a login
-        $controller = new FilmController();
+        $controller = new DirectorController();
         $id = $params[1];
         $controller->showFilmsByDirector($id);
         break;
     case 'showDirectors':
         sessionAuthMiddleware($res);
-        $controller = new FilmController();
+        $controller = new DirectorController();
         $controller->showDirectors();
         break;
     case 'deleteDirector':
         sessionAuthMiddleware($res);
-        $controller = new FilmController();
-        $controller->deleteFilm($params[1]);
+        $controller = new DirectorController();
+        $controller->deleteDirector($params[1]);
         break;
     case 'showDirForm' :
         sessionAuthMiddleware($res);
-        $controller = new FilmController();
+        $controller = new DirectorController();
         $controller->showDirForm();
         break;
     case 'addDirector' :
         sessionAuthMiddleware($res);
-        $controller = new FilmController();
+        $controller = new DirectorController();
         $controller->addDirector();
         break;
     case 'showModifyDirector' :
         sessionAuthMiddleware($res);
-        $controller = new FilmController();
+        $controller = new DirectorController();
         $controller->showModifyDirector($params[1]);
         break;
     case 'modifyDirector' :
         sessionAuthMiddleware($res);
-        $controller = new FilmController();
+        $controller = new DirectorController();
         $controller->modifyDirector($params[1]);
         break;
 

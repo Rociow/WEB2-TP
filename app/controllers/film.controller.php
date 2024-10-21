@@ -2,21 +2,24 @@
 
 require_once './app/models/film.model.php';
 require_once './app/view/film.view.php';
+require_once './app/models/director.model.php';
 
 class FilmController {
 
     private $view;
     private $model;
 
+    private $directorModel;
+
     public function __construct() {
         $this->model = new FilmModel();
         $this->view = new FilmView();
+
+        $this->directorModel = new DirectorModel();
     }
 
-    function showDirectors(){
-        $directores = $this->model->getDirectores();
-        $this -> view -> showDirectores($directores);
-    }   
+
+    //1. LISTAR
 
     function showTop5(){
         $top5 = $this->model->getTop5();
@@ -25,7 +28,7 @@ class FilmController {
 
     function showFilmsByDirector($id_director){
         $films= $this->model->getFilmByDirector($id_director);
-        $director= $this->model->getDirector($id_director);
+        $director= $this->directorModel->getDirector($id_director);
         $this -> view -> showDirector($films, $director);
     }
 
@@ -33,13 +36,16 @@ class FilmController {
         $film = $this->model->getFilm($id);
         $id_director = $this->model->getDirectorIdByFilm($id);
    
-        $director= $this->model->getDirectorName($id_director[0]->id_director);
+        $director= $this->directorModel->getDirectorName($id_director[0]->id_director);
 
         $this -> view -> showFilm($film, $director[0]->nombre);
     }  
 
+
+    //2. AGREGAR
+
     public function showFilmForm() {
-        $directores=$this->model->getDirectores();
+        $directores=$this->directorModel->getDirectores();
         $this->view->showFilmForm($directores);
     }
 
@@ -68,15 +74,16 @@ class FilmController {
 
         $this->model->insertFilm($title, $id_director, $genre, $year, $synopsis);
 
-        //$id = $this->model->insertFilm($title, $genre, $year, $synopsis); //$id_director, $genre, $year, $synopsis);
-
         // redirijo al home (también podriamos usar un método de una vista para motrar un mensaje de éxito)
         header('Location: ' . BASE_URL);
     }
 
+
+    //3. MODIFICAR
+
     function showModify($id) {
         $film = $this->model->getFilm($id);
-        $directores = $this->model->getDirectores();
+        $directores = $this->directorModel->getDirectores();
         
         $this->view->showModifyFilm($film, $directores);
     }
@@ -106,11 +113,12 @@ class FilmController {
 
         $this->model->modifyFilm($id, $title, $id_director, $genre, $year, $synopsis);
 
-        //$id = $this->model->insertFilm($title, $genre, $year, $synopsis); //$id_director, $genre, $year, $synopsis);
-
         // redirijo al home (también podriamos usar un método de una vista para motrar un mensaje de éxito)
         header('Location: ' . BASE_URL);
     }
+
+
+    //4. ELIMINAR
 
     public function deleteFilm($id) {
         // obtengo la tarea por id
@@ -126,98 +134,7 @@ class FilmController {
         header('Location: ' . BASE_URL);
     }
 
-    public function deleteDirector($id) {
-        // obtengo la tarea por id
-        $director = $this->model->getDirector($id);
-
-        if (!$director) {
-            return $this->view->showError("No existe director con el id=$id");
-            var_dump($director);
-        }
-        
-        // borro la tarea y redirijo
-        $this->model->eraseDirector($id);
-
-        header('Location: ');
-        
-    }
-
-    function showDirForm() {
-        $this->view->showDirForm();
-    }
-
-    function addDirector() {
-        if (!isset($_POST['name']) || empty($_POST['name'])) {
-            return $this->view->showError('Falta completar el nombre');
-        }
-        if (!isset($_POST['nationality']) || empty($_POST['nationality'])) {
-            return $this->view->showError('Falta la nacionalidad');
-        }
-        if (!isset($_POST['bdate']) || empty($_POST['bdate'])) {
-            return $this->view->showError('Falta la fecha de nacimiento');
-        }
-        if (!isset($_POST['bio']) || empty($_POST['bio'])) {
-            return $this->view->showError('Falta la biografía');
-        }
-
-        $name = $_POST['name'];
-        $nationality = $_POST['nationality'];
-        $bdate = $_POST['bdate'];
-        $bio = $_POST['bio'];
-
-        $this->model->addDirector($name, $nationality, $bdate, $bio);
-
-        // redirijo al listado de directores
-        header('Location: showDirectors');
-    }
-
-    function showModifyDirector($id) {
-        $director = $this->model->getDirector($id);
-        $this->view->showModifyDirector($director);
-    }
-
-    function modifyDirector($id){
-        if (!isset($_POST['name']) || empty($_POST['name'])) {
-            return $this->view->showError('Falta completar el nombre');
-        }
-        if (!isset($_POST['nationality']) || empty($_POST['nationality'])) {
-            return $this->view->showError('Falta la nacionalidad');
-        }
-        if (!isset($_POST['bdate']) || empty($_POST['bdate'])) {
-            return $this->view->showError('Falta la fecha de nacimiento');
-        }
-        if (!isset($_POST['bio']) || empty($_POST['bio'])) {
-            return $this->view->showError('Falta la biografía');
-        }
-
-        $name = $_POST['name'];
-        $nationality = $_POST['nationality'];
-        $bdate = $_POST['bdate'];
-        $bio = $_POST['bio'];
-
-        $this->model->modifyDirector($id, $name, $nationality, $bdate, $bio);
-
-        header('Location: ' . BASE_URL );
-    }
-
     public function showError($error){
         $this->view->showError($error);
     }
-
-    /*public function finishTask($id) {
-        $task = $this->model->getTask($id);
-
-        if (!$task) {
-            return $this->view->showError("No existe la tarea con el id=$id");
-        }
-
-        // actualiza la tarea
-        $this->model->updateTask($id);
-
-        header('Location: ' . BASE_URL);
-    }*/
 }
-
-
-
-?>
