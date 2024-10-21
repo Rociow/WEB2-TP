@@ -18,19 +18,15 @@ if (!empty( $_GET['action'])) {
 $params = explode('/', $action);
 
 switch ($params[0]) {
+    //HOME
     case 'home':
         sessionAuthMiddleware($res);
         $controller = new FilmController();
         //PUEDE SER DIRECTORES O TOP5 PELIS POPULARES
         $controller->showTop5();
         break;
-    case 'showDirector':
-        sessionAuthMiddleware($res);
-        // Verifica que el usuario esté logueado y setea $res->user o redirige a login
-        $controller = new FilmController();
-        $id = $params[1];
-        $controller->showFilmsByDirector($id);
-        break;
+    
+    //LADO N RELACION (PELICULAS)
     case 'showFilm':
         sessionAuthMiddleware($res);
         // Verifica que el usuario esté logueado y setea $res->user o redirige a login
@@ -38,22 +34,12 @@ switch ($params[0]) {
         $id = $params[1];
         $controller->showFilm($id);
         break;
-    case 'showDirectors':
-        sessionAuthMiddleware($res);
-        $controller = new FilmController();
-        $controller->showDirectors();
-        break;
     case 'new':
         sessionAuthMiddleware($res);
         $controller = new FilmController();
         $controller->addFilm();
         break;
     case 'deleteFilm':
-        sessionAuthMiddleware($res);
-        $controller = new FilmController();
-        $controller->deleteFilm($params[1]);
-        break;
-    case 'deleteDirector':
         sessionAuthMiddleware($res);
         $controller = new FilmController();
         $controller->deleteFilm($params[1]);
@@ -77,7 +63,48 @@ switch ($params[0]) {
         sessionAuthMiddleware($res);
         $controller = new FilmController();
         $controller->modifyFilm($params[1]);
+        break;  
+        
+    //LADO 1 RELACION (DIRECTOR)
+    case 'showDirector':
+        sessionAuthMiddleware($res);
+        // Verifica que el usuario esté logueado y setea $res->user o redirige a login
+        $controller = new FilmController();
+        $id = $params[1];
+        $controller->showFilmsByDirector($id);
         break;
+    case 'showDirectors':
+        sessionAuthMiddleware($res);
+        $controller = new FilmController();
+        $controller->showDirectors();
+        break;
+    case 'deleteDirector':
+        sessionAuthMiddleware($res);
+        $controller = new FilmController();
+        $controller->deleteFilm($params[1]);
+        break;
+    case 'showDirForm' :
+        sessionAuthMiddleware($res);
+        $controller = new FilmController();
+        $controller->showDirForm();
+        break;
+    case 'addDirector' :
+        sessionAuthMiddleware($res);
+        $controller = new FilmController();
+        $controller->addDirector();
+        break;
+    case 'showModifyDirector' :
+        sessionAuthMiddleware($res);
+        $controller = new FilmController();
+        $controller->showModifyDirector($params[1]);
+        break;
+    case 'modifyDirector' :
+        sessionAuthMiddleware($res);
+        $controller = new FilmController();
+        $controller->modifyDirector($params[1]);
+        break;
+
+    //USUARIOS Y REGISTRO
     case 'showLogin':
         $controller = new AuthController();
         $controller->showLogin();

@@ -29,6 +29,14 @@ class FilmView {
         require_once './templates/modificar_peli.phtml';
     }
 
+    function showDirForm() {
+        require_once './templates/agregar_director.phtml';
+    }
+
+    function showModifyDirector($director) {
+        require_once './templates/modificar_director.phtml';
+    }
+
     function showLogin () {
         require_once './templates/form_login.phtml';
     }

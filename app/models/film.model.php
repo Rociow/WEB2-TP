@@ -113,4 +113,22 @@ class FilmModel {
         return $top5;
     }
 
+    function addDirector($name, $nationality, $bdate, $bio) {
+        $query = $this->db->prepare('INSERT INTO director(nombre, nacionalidad, fecha_nacimiento, biografia) VALUES (?,?,?,?)');
+        $query->execute([$name, $nationality, $bdate, $bio]);
+
+        $id = $this->db->lastInsertId();
+
+        return $id;
+    }
+
+    function modifyDirector($id, $name, $nationality, $bdate, $bio) {
+        $query = $this->db->prepare('UPDATE director SET nombre=?, nacionalidad=?, fecha_nacimiento=?, biografia=? WHERE id = ?');
+        $query->execute([$name, $nationality, $bdate, $bio, $id]);
+
+        $id = $this->db->lastInsertId();
+
+        return $id;
+    }
+
 }
