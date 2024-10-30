@@ -1,6 +1,7 @@
 # TPE WEB 2
 ## Biblioteca de peliculas
-### Rocio Wesenack Juan Delgado
+### Rocio Wesenack (roociow@gmail.com)
+### Juan Delgado (juan00ignacio@gmail.com)
 
 El dominio de la página consistirá principalmente en mostrar información de películas y sus respectivos directores, y en un futuro se buscará expandir y agregarle funcionalidades de reseña y calificación de usuarios que a su vez deberan registrarse.
 
