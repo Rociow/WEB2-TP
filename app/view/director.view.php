@@ -23,4 +23,9 @@ class DirectorView {
     function showError ($error){
         require_once './templates/mostrar_error.phtml';
     }
+
+    function deleteDirectorSuccess($director) {
+        $alert = "<h4>ELIMINADO CORRECTAMENTE a: <br>" .$director[0]->nombre. "<br> con id: " .$director[0]->id. "</h4>";
+        require_once './templates/alert.phtml';
+    }
 }

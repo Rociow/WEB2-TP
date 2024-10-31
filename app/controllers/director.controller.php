@@ -104,7 +104,7 @@ class DirectorController {
         
         // borro la tarea y redirijo
         $this->model->deleteDirector($id);
-
-        header('Location: ');
+        $this->view->deleteDirectorSuccess($director);
+        header("refresh:4;url=".BASE_URL."showDirectors");
     }
 }
