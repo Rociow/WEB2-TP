@@ -47,5 +47,10 @@ class FilmView {
         require_once './templates/top5.phtml';
     }
 
+    function showFilms($films) {
+        $count = count($films);
+        require_once './templates/listar_peliculas.phtml';
+    }
+
 
 }

@@ -28,14 +28,8 @@ class AuthController {
         $username = $_POST['username'];
         $password = $_POST['password'];
     
-        // Verificar que el usuario está en la base de datos
+        //Si existe traigo el usuario desde la base de datos
         $user = $this->model->getUserByName($username);
-        var_dump($user);
-
-        var_dump($password);
-        //HASTA ACA TODO BIEN
-        
-        var_dump(password_verify($password, $user->password));
 
         if($user && password_verify($password, $user->password)){
             // Guardo en la sesión el ID del usuario

@@ -22,6 +22,15 @@ class FilmModel {
          return $films;
     }
 
+    function getFilmsWithDirectorName(){
+
+        $query = $this->db->prepare('SELECT peliculas.*, director.nombre FROM peliculas INNER JOIN director ON peliculas.id_director = director.id ORDER BY `peliculas`.`titulo` ASC');
+        $query->execute();
+
+        $films = $query->fetchAll(PDO::FETCH_OBJ);
+        return $films;
+    }
+
     function getFilmByDirector($id_director){
         // 2. Ejecuto la consulta
         $query = $this->db->prepare('SELECT * FROM peliculas WHERE id_director = ?');

@@ -21,6 +21,11 @@ class FilmController {
 
     //1. LISTAR
 
+    function showFilms() {
+        $films = $this->model->getFilmsWithDirectorName();
+        $this->view->showFilms($films);
+    }
+
     function showTop5(){
         $top5 = $this->model->getTop5();
         $this->view->showTop5($top5);

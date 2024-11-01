@@ -28,6 +28,11 @@ switch ($params[0]) {
         break;
     
     //LADO N RELACION (PELICULAS)
+    case 'showFilms':
+        sessionAuthMiddleware($res);
+        $controller = new FilmController();
+        $controller->showFilms();
+        break;
     case 'showFilm':
         sessionAuthMiddleware($res);
         $controller = new FilmController();
