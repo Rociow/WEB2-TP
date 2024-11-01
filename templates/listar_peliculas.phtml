@@ -2,11 +2,7 @@
 $titulo = 'Películas';
 require 'header.phtml';
 ?>
-
-
- 
 <h1>Películas</h1>
-
 <ul class="list-group">
 <?php foreach($films as $film): ?>
     <li class="list-group-item item-task">
@@ -19,7 +15,7 @@ require 'header.phtml';
             <a href="deleteFilm/<?= $film->id ?>" type="button" class='btn btn-danger btn-sm ml-auto'>Borrar</a>
         <?php endif; ?>
         <?php if ((!empty($_SESSION['USER_USERNAME']))): ?>
-            <a href="modifyFilm/<?= $film->id ?>" type="button" class='btn btn-danger btn-sm ml-auto'>Editar</a>
+            <a href="showModify/<?= $film->id ?>" type="button" class='btn btn-danger btn-sm ml-auto'>Editar</a>
         <?php endif; ?>
         <a href="showFilm/<?= $film->id ?>" type="button" class='btn btn-danger btn-sm ml-auto'>Ver más...</a>
         </div>

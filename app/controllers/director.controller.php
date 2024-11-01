@@ -56,8 +56,10 @@ class DirectorController {
 
         $this->model->addDirector($name, $nationality, $bdate, $bio);
 
-        // redirijo al listado de directores
-        header('Location: showDirectors');
+        $this->view->showAlert('Usted agregó un nuevo director!', 'success');
+
+        // redirijo al home (también podriamos usar un método de una vista para motrar un mensaje de éxito)
+        header("refresh:4;url=".BASE_URL."showDirectors");
     }
 
     //3. MODIFICAR

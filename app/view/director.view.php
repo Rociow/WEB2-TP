@@ -28,4 +28,8 @@ class DirectorView {
         $alert = "<h4>ELIMINADO CORRECTAMENTE a: <br>" .$director[0]->nombre. "<br> con id: " .$director[0]->id. "</h4>";
         require_once './templates/alert.phtml';
     }
+
+    function showAlert($alert, $type) {
+        require_once './templates/alert.phtml';
+    }
 }

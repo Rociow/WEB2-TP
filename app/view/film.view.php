@@ -7,6 +7,10 @@ class FilmView {
         require_once './templates/mostrar_error.phtml';
     }
 
+    function showAlert($alert, $type) {
+        require_once './templates/alert.phtml';
+    }
+
     function showDirectores ($directores){
         $count = count($directores);
         require_once './templates/listar_directores.phtml';

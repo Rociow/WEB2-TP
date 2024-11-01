@@ -79,8 +79,10 @@ class FilmController {
 
         $this->model->insertFilm($title, $id_director, $genre, $year, $synopsis);
 
+        $this->view->showAlert('Usted agregó una nueva película!', 'success');
+
         // redirijo al home (también podriamos usar un método de una vista para motrar un mensaje de éxito)
-        header('Location: ' . BASE_URL);
+        header("refresh:4;url=".BASE_URL."showFilms");
     }
 
 

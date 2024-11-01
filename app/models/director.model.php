@@ -11,7 +11,7 @@ class DirectorModel {
     //1. LISTAR
 
     function getDirectores(){
-        $query = $this->db->prepare('SELECT * FROM director');
+        $query = $this->db->prepare('SELECT * FROM director ORDER BY nombre ASC');
         $query->execute();
      
         $directors = $query->fetchAll(PDO::FETCH_OBJ); 
