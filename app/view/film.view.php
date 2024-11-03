@@ -16,6 +16,16 @@ class FilmView {
         require_once './templates/listar_directores.phtml';
     }
 
+    function deleteFilmSuccess($film) {
+        $alert = "<h4>ELIMINADO CORRECTAMENTE a: <br>" .$film[0]->nombre. "<br> con id: " .$film[0]->id. "</h4>";
+        require_once './templates/alert.phtml';
+    }
+
+    function ModifyFilmSuccess($film) {
+        $alert = "<h4>MODIFICÓ CORRECTAMENTE a: <br>" .$film[0]->titulo. "<br> con id: " .$film[0]->id. "</h4>";
+        require_once './templates/alert.phtml';
+    }
+
     function showDirector ($films, $director){        
         $count = count($films);
         require_once './templates/director.phtml';

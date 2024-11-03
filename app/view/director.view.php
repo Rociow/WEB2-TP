@@ -29,6 +29,11 @@ class DirectorView {
         require_once './templates/alert.phtml';
     }
 
+    function ModifyDirectorSuccess($director) {
+        $alert = "<h4>MODIFICÓ CORRECTAMENTE a: <br>" .$director[0]->nombre. "<br> con id: " .$director[0]->id. "</h4>";
+        require_once './templates/alert.phtml';
+    }
+
     function showAlert($alert, $type) {
         require_once './templates/alert.phtml';
     }

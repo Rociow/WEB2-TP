@@ -90,7 +90,10 @@ class DirectorController {
 
         $this->model->modifyDirector($id, $name, $nationality, $bdate, $bio);
 
-        header('Location: ' . BASE_URL );
+        $director = $this->model->getDirector($id);
+        $this->view->ModifyDirectorSuccess($director);
+        header("refresh:4;url=".BASE_URL."showDirectors");
+
     }
 
     //4. ELIMINAR

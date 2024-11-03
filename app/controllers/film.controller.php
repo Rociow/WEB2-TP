@@ -119,9 +119,12 @@ class FilmController {
         $synopsis = $_POST['synopsis'];
 
         $this->model->modifyFilm($id, $title, $id_director, $genre, $year, $synopsis);
+        
+        $film = $this->model->getFilm($id);
+        $this->view->ModifyFilmSuccess($film);
+        header("refresh:4;url=".BASE_URL."showFilms");
+     //aca si yo edito desde directores me va a dirijir siempre a showFIlms
 
-        // redirijo al home (también podriamos usar un método de una vista para motrar un mensaje de éxito)
-        header('Location: ' . BASE_URL);
     }
 
 
@@ -138,7 +141,10 @@ class FilmController {
         // borro la tarea y redirijo
         $this->model->eraseFilm($id);
 
-        header('Location: ' . BASE_URL);
+        $this->view->DeleteFilmSuccess($film);
+        // redirijo al home (también podriamos usar un método de una vista para motrar un mensaje de éxito)
+        header("refresh:4;url=".BASE_URL."showFilms");//aca si yo borro desde directores me va a dirijir siempre a showFIlms
+
     }
 
     public function showError($error){

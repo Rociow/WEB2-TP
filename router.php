@@ -45,13 +45,13 @@ switch ($params[0]) {
         $controller = new FilmController();
         $controller->addFilm();
         break;
-    case 'showFilmForm' :
+    case 'showFilmForm' : //este no anda
         sessionAuthMiddleware($res);
         verifyAuthMiddleware($res);
         $controller = new FilmController();
         $controller->showFilmForm();
         break;
-    case 'addFilm' :
+    case 'addFilm' : //es igual al NEW?
         sessionAuthMiddleware($res);
         verifyAuthMiddleware($res);
         $controller = new FilmController();
