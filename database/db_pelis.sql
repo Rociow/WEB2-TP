@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-10-2024 a las 00:27:44
+-- Tiempo de generación: 06-11-2024 a las 16:55:30
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -61,7 +61,8 @@ INSERT INTO `director` (`id`, `nombre`, `nacionalidad`, `fecha_nacimiento`, `bio
 (6, 'David Cronenberg', 'Canadiense', '1943-03-15', 'David Paul Cronenberg es un director de cine y guionista canadiense.​ Junto a John Carpenter y Wes Craven, se le ha llegado a considerar dentro de un grupo denominado de \"las tres C\" del cine de horror contemporáneo.\r\nEs uno de los principales exponentes de lo que se ha denominado \"body horror\" el cual explora los miedos humanos ante la transformación física y la infección.​ Inaugura y abandera el concepto de la \"nueva carne\", eliminando las fronteras entre lo mecánico y lo orgánico.​ En sus películas usualmente se mezcla lo psicológico con lo físico y su obra se ha desarrollado desde los años 1960 hasta la actualidad.'),
 (7, 'John Carpenter', 'Estadounidense', '1948-01-16', 'John Howard Carpenter es un director de cine,​ guionista y compositor​ de bandas sonoras estadounidense.​ Es calificado, junto con David Cronenberg y Wes Craven,​ como uno de los realizadores del género de terror​ más importantes, especialmente en las décadas de 1970 y 1980.\r\nEn su filmografía se hallan películas que han obtenido grandes éxitos de taquilla como Halloween (1978), The Fog (La niebla) (1980) o Starman (1984). También ha dirigido influyentes títulos como Escape from New York (1997: Rescate en Nueva York) (1981),​ The Thing (La Cosa) (1982), Big Trouble in Little China (Golpe en la pequeña China) (1986) o They Live (Están vivos) (1987). A lo largo de su trayectoria ha obtenido 22 premios, incluyendo los Saturn o los del Festival de Cannes y Sitges, además de otras 20 nominaciones.'),
 (8, 'Damián Szifrón', 'Argentino', '1975-07-09', 'Damián David Szifron (Ramos Mejía; 9 de julio de 1975) es un director y guionista argentino de cine y televisión, creador de la serie Los simuladores (2002-2004). Ha dirigido los largometrajes El fondo del mar (2003), Tiempo de valientes (2005) y Relatos salvajes (2014), película que se transformó en una de las de mayor éxito de Argentina en los últimos tiempos y fue candidata a numerosos premios, incluyendo al Óscar a la mejor película internacional y a la Palma de Oro en el Festival Internacional de Cine de Cannes.'),
-(9, 'Juan José Campanella', 'Argentino', '1959-07-19', 'Juan José Campanella (Buenos Aires) es un director, guionista y productor de cine y televisión argentino. Una de las películas que dirigió, El secreto de sus ojos, ganó el premio Óscar como Mejor película de habla no inglesa en 2010.');
+(9, 'Juan José Campanella', 'Argentino', '1959-07-19', 'Juan José Campanella (Buenos Aires) es un director, guionista y productor de cine y televisión argentino. Una de las películas que dirigió, El secreto de sus ojos, ganó el premio Óscar como Mejor película de habla no inglesa en 2010.'),
+(42, 'Francis Ford Coppola', 'Estadounidense', '1939-04-07', 'Francis Ford Coppola es un guionista, productor y director de cine estadounidense. Es una de las figuras más destacadas del Nuevo Hollywood que tuvo lugar en la década de 1970, junto a cineastas como Martin Scorsese, Steven Spielberg, Brian de Palma y George Lucas, entre otros.');
 
 -- --------------------------------------------------------
 
@@ -98,7 +99,11 @@ INSERT INTO `peliculas` (`id`, `titulo`, `id_director`, `genero`, `year`, `sinop
 (23, 'The Wolf of Wall Street', 2, 'Comedia', '2013', 'di caprio millonario mucha joda'),
 (24, 'Killers of the Flower Moon', 2, 'Historica', '2023', 'de niro y dicaprio estafan a una familia de i'),
 (26, 'El secreto de sus ojos', 9, 'Drama', '2009', 'Darín persigue a un asesino junto a Francella y Soledad Villamil y en el medio se enamora.'),
-(27, 'Relatos Salvajes', 8, 'Drama', '2014', 'ahora la afip bombita!!');
+(27, 'Relatos Salvajes', 8, 'Drama', '2014', 'ahora la afip bombita!!'),
+(29, 'The Thing', 7, 'Horror', '1982', 'The Thing (La cosa en España, La cosa del otro mundo en México y El enigma de otro mundo en Argentina y varios países de Hispanoamérica)​ es una película de terror y ciencia ficción estadounidense-canadiense de 1982 dirigida por John Carpenter y escrita p'),
+(30, 'Videodrome', 6, 'Horror', '1983', 'Videodrome es una película canadiense de ciencia ficción y terror de 1983.​ Escrita y dirigida por David Cronenberg está protagonizada por James Woods, Sonja Smits y Deborah Harry (BLONDIE).​ Ambientada en la ciudad de Toronto en los años 1980 la trama mu'),
+(31, 'Tiempo de Valientes', 8, 'Drama', '2005', 'Tiempo de valientes es una película argentina de comedia y suspenso de 2005 escrita y dirigida por Damián Szifron, producida por K&S Films, y protagonizada por Luis Luque y Diego Peretti.\r\nEs la segunda película en la carrera de Szifron y es considerada c'),
+(32, 'Crimes of the Future', 6, 'Horror', '2023', 'viggo mortensen body-horror');
 
 -- --------------------------------------------------------
 
@@ -166,13 +171,13 @@ ALTER TABLE `calificacion`
 -- AUTO_INCREMENT de la tabla `director`
 --
 ALTER TABLE `director`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT de la tabla `peliculas`
 --
 ALTER TABLE `peliculas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
@@ -195,7 +200,7 @@ ALTER TABLE `calificacion`
 -- Filtros para la tabla `peliculas`
 --
 ALTER TABLE `peliculas`
-  ADD CONSTRAINT `fk_pelis_director` FOREIGN KEY (`id_director`) REFERENCES `director` (`id`);
+  ADD CONSTRAINT `fk_pelis_director` FOREIGN KEY (`id_director`) REFERENCES `director` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
