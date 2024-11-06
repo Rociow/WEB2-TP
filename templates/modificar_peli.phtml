@@ -3,7 +3,11 @@ $titulo = 'Modificar pelicula';
 require 'header.phtml';
 ?>
 
+<?php if($dirPage) : ?>
+    <form action="modifyFilm/<?=$film[0]->id?>/<?=$dirPage?>" method="POST" class="my-4">
+<?php else : ?>
 <form action="modifyFilm/<?=$film[0]->id?>" method="POST" class="my-4">
+<?php endif ?>
     <div class="row">
         <div class="col-9">
             <div class="form-group">

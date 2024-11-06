@@ -23,10 +23,10 @@ require 'header.phtml';
             </div>
             <div class="actions">
             <?php if ((isset ($_SESSION['USER_USERNAME']))&&(($_SESSION['USER_USERNAME']=='webadmin'))): ?>
-                <a href="deleteFilm/<?= $film->id ?>" type="button" class='btn btn-danger btn-sm ml-auto'>Borrar</a>
+                <a href="deleteFilm/<?= $film->id ?>/<?=$director[0]->id?>" type="button" class='btn btn-danger btn-sm ml-auto'>Borrar</a>
             <?php endif; ?>
             <?php if ((isset ($_SESSION['USER_USERNAME']))): ?>
-                <a href="showModify/<?= $film->id ?>" type="button" class='btn btn-danger btn-sm ml-auto'>Editar</a>
+                <a href="showModify/<?= $film->id ?>/<?=$director[0]->id?>" type="button" class='btn btn-danger btn-sm ml-auto'>Editar</a>
             <?php endif; ?>
                 <a href="showFilm/<?= $film->id ?>" type="button" class='btn btn-danger btn-sm ml-auto'>Ver más...</a>
             </div>

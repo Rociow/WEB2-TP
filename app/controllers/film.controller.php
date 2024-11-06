@@ -88,14 +88,14 @@ class FilmController {
 
     //3. MODIFICAR
 
-    function showModify($id) {
+    function showModify($id, $dirPage=null) {
         $film = $this->model->getFilm($id);
         $directores = $this->directorModel->getDirectores();
         
-        $this->view->showModifyFilm($film, $directores);
+        $this->view->showModifyFilm($film, $directores, $dirPage);
     }
 
-    public function modifyFilm($id) {
+    public function modifyFilm($id, $dirPage=null) {
         if (!isset($_POST['title']) || empty($_POST['title'])) {
             return $this->view->showError('Falta completar el título');
         }
@@ -120,17 +120,20 @@ class FilmController {
 
         $this->model->modifyFilm($id, $title, $id_director, $genre, $year, $synopsis);
         
-        $film = $this->model->getFilm($id);
-        $this->view->ModifyFilmSuccess($film);
-        header("refresh:4;url=".BASE_URL."showFilms");
-     //aca si yo edito desde directores me va a dirijir siempre a showFIlms
+        $this->view->showAlert('Usted modificó la película '.$title.'!', 'warning');
+
+        if($dirPage) {
+            header("refresh:4;url=".BASE_URL."showDirector/".$dirPage);
+        } else {
+            header("refresh:4;url=".BASE_URL."showFilms");//aca si yo borro desde directores me va a dirijir siempre a showFIlms
+        }     //aca si yo edito desde directores me va a dirijir siempre a showFIlms
 
     }
 
 
     //4. ELIMINAR
 
-    public function deleteFilm($id) {
+    public function deleteFilm($id, $id_director=null) {
         // obtengo la tarea por id
         $film = $this->model->getFilm($id);
 
@@ -141,10 +144,13 @@ class FilmController {
         // borro la tarea y redirijo
         $this->model->eraseFilm($id);
 
-        $this->view->DeleteFilmSuccess($film);
-        // redirijo al home (también podriamos usar un método de una vista para motrar un mensaje de éxito)
-        header("refresh:4;url=".BASE_URL."showFilms");//aca si yo borro desde directores me va a dirijir siempre a showFIlms
+        $this->view->showAlert('Usted elimnó una película!', 'danger');
 
+        if($id_director) {
+            header("refresh:4;url=".BASE_URL."showDirector/".$id_director);
+        } else {
+            header("refresh:4;url=".BASE_URL."showFilms");//aca si yo borro desde directores me va a dirijir siempre a showFIlms
+        }
     }
 
     public function showError($error){

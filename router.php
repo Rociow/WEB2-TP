@@ -61,19 +61,25 @@ switch ($params[0]) {
         sessionAuthMiddleware($res);
         verifyAuthMiddleware($res);
         $controller = new FilmController();
-        $controller->showModify($params[1]);
+        if(count($params)>2){
+        $controller->showModify($params[1],$params[2]);}
+        else {$controller->showModify($params[1]);}
         break;
     case 'modifyFilm' :
         sessionAuthMiddleware($res);
         verifyAuthMiddleware($res);
         $controller = new FilmController();
-        $controller->modifyFilm($params[1]);
+        if(count($params)>2) {
+        $controller->modifyFilm($params[1],$params[2]);}
+        else {$controller->modifyFilm($params[1]);}
         break;  
     case 'deleteFilm':
         sessionAuthMiddleware($res);
         verifyAuthMiddleware($res);
         $controller = new FilmController();
-        $controller->deleteFilm($params[1]);
+        if(count($params)>2){
+        $controller->deleteFilm($params[1],$params[2]);}
+        else {$controller->deleteFilm($params[1]);}
         break;  
 
     //LADO 1 RELACION (DIRECTOR)

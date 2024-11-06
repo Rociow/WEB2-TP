@@ -91,8 +91,8 @@ class DirectorController {
         $this->model->modifyDirector($id, $name, $nationality, $bdate, $bio);
 
         $director = $this->model->getDirector($id);
-        $this->view->ModifyDirectorSuccess($director);
-        header("refresh:4;url=".BASE_URL."showDirectors");
+        $this->view->showAlert('Usted modificó a '.$director[0]->nombre. ' !', 'warning');
+        header("refresh:3;url=".BASE_URL."showDirectors");
 
     }
 
@@ -109,7 +109,8 @@ class DirectorController {
         
         // borro la tarea y redirijo
         $this->model->deleteDirector($id);
-        $this->view->deleteDirectorSuccess($director);
-        header("refresh:4;url=".BASE_URL."showDirectors");
+
+        $this->view->showAlert('Usted eliminó a '.$director[0]->nombre. ' !', 'danger');
+        header("refresh:3;url=".BASE_URL."showDirectors");
     }
 }
