@@ -39,19 +39,13 @@ switch ($params[0]) {
         $id = $params[1];
         $controller->showFilm($id);
         break;
-    case 'new':
-        sessionAuthMiddleware($res); // Setea $res->user si existe session
-        verifyAuthMiddleware($res); // Verifica que el usuario esté logueado o redirecciona al login
-        $controller = new FilmController();
-        $controller->addFilm();
-        break;
-    case 'showFilmForm' : //este no anda
+    case 'showFilmForm' : 
         sessionAuthMiddleware($res);
         verifyAuthMiddleware($res);
         $controller = new FilmController();
         $controller->showFilmForm();
         break;
-    case 'addFilm' : //es igual al NEW?
+    case 'addFilm' :
         sessionAuthMiddleware($res);
         verifyAuthMiddleware($res);
         $controller = new FilmController();
